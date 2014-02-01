@@ -1,0 +1,8 @@
+/*C1*/SET SCHEMA PUBLIC
+CONNECT USER SA
+alter table User add column dobDay integer
+alter table User add column dobMonth integer
+alter table User add column dobYear integer
+alter table User add column password2 varchar(255)
+INSERT INTO USER VALUES(1,'2014-01-01 00:00:00.902000000','password','E11EE',NULL,'aaron',NULL,NULL,NULL,NULL)
+DISCONNECT
