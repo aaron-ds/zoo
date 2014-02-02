@@ -3,7 +3,11 @@ package com.whiteleys.zoo.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.*;
 
+import com.whiteleys.zoo.domain.Sex;
+
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.io.Serializable;
 
 /**
@@ -12,7 +16,9 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
-    private Long userId;
+	private static final long serialVersionUID = 4567532505179465929L;
+
+	private Long userId;
     private String username;
     private String password;
     private transient String password2;
@@ -21,7 +27,8 @@ public class User implements Serializable {
     private transient Integer dobYear;
     private Date dateOfBirth;
     private String postcode;
-    private transient com.whiteleys.zoo.domain.Sex sex;
+    private Sex sex;
+    private Set<Animal> favouriteAnimals;
 
 
     public Integer getDobDay() {
@@ -93,8 +100,9 @@ public class User implements Serializable {
     /**
      * @return the user's sex
      */
-    //@Column(name="sex", nullable = false, length = 1)
-    public com.whiteleys.zoo.domain.Sex getSex() {
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="sex", nullable = false, length = 1)
+    public Sex getSex() {
         return sex;
     }
 
@@ -104,6 +112,14 @@ public class User implements Serializable {
     @Column(name="postcode", nullable = false)
     public String getPostcode() {
         return postcode;
+    }
+    
+    @ManyToMany
+    @JoinTable(name = "USER_ANIMAL", 
+    			joinColumns = { @JoinColumn(name = "USER_ID") }, 
+    			inverseJoinColumns = { @JoinColumn(name = "ANIMAL_ID") })
+    public Set<Animal> getFavouriteAnimals() {
+    	return favouriteAnimals;
     }
 
 
@@ -139,5 +155,9 @@ public class User implements Serializable {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+    
+    public void setFavouriteAnimals(Set<Animal> animals) {
+    	favouriteAnimals = animals;
     }
 }

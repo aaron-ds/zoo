@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The sex of a user, either male or female.
  */
-public enum Sex {
+public enum Sex implements Serializable {
 
     /**
      * Male.

@@ -5,6 +5,8 @@ import com.whiteleys.zoo.domain.Sex;
 import com.whiteleys.zoo.domain.User;
 import com.whiteleys.zoo.service.UserService;
 import com.whiteleys.zoo.web.Globals;
+import com.whiteleys.zoo.web.validation.UserRegistrationValidator;
+
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +37,9 @@ import java.util.Calendar;
 public class UserRegistrationController {
 
     private UserService userService;
-
+    
+    //@Autowired
+    private Validator UserRegistrationValidator;
 
 
     @RequestMapping(method = RequestMethod.POST)
@@ -43,8 +49,11 @@ public class UserRegistrationController {
         Calendar cal = new GregorianCalendar();
         cal.set(command.getDobYear(), command.getDobMonth(), command.getDobDay(), 0, 0, 0);
 
-        User user = userService.register(command.getUsername(), command.getPassword(), command.getSex(),
-                cal.getTime(), command.getPostcode());
+        User user = userService.register(command.getUsername(), 
+        		command.getPassword(), 
+        		command.getSex(),
+                cal.getTime(), 
+                command.getPostcode());
         
 
         // put the user (who is now logged in) into the session

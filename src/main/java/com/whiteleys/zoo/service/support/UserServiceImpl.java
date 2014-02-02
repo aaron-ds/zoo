@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setDateOfBirth(dob);
         user.setPostcode(postcode);
+        user.setSex(sex);
         
         userDao.save(user);
 
