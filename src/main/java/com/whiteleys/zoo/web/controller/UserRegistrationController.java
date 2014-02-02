@@ -38,7 +38,6 @@ public class UserRegistrationController {
 
     private UserService userService;
     
-    //@Autowired
     private Validator UserRegistrationValidator;
 
 

@@ -11,8 +11,15 @@
 <c:forEach items="${requestScope.allAnimals}" var="animal">
     <p>
         <span><img src="gallery/${animal.filename}" alt="${animal.filename}"></span>
+        <c:set var="isFavourite" value="false" />
+		<c:forEach var="favourite" items="${requestScope.favourites}">
+		  <c:if test="${favourite.id eq animal.id}">
+		    <c:set var="isFavourite" value="true" />
+		  </c:if>
+		</c:forEach>
+		
         <c:choose>
-            <c:when test="${requestScope.favourites[animal.id]}">
+            <c:when test="${isFavourite}">
                 <a href="removeFavourite.html?animalId=${animal.id}&gallery=true">
                     <img src="images/hotStar.png" alt="Remove from favourites"/>
                 </a>

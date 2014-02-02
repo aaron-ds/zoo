@@ -13,4 +13,10 @@ public class HibernateAnimalDao extends HibernateDaoSupport implements AnimalDao
     public List<Animal> findAll() {
         return getHibernateTemplate().loadAll(Animal.class);
     }
+    
+    @SuppressWarnings("unchecked")
+    public Animal find(Long id) {
+    	List<Animal> animals = getHibernateTemplate().find("FROM Animal WHERE id = ?", id);
+    	return (animals != null && animals.size() == 1) ? animals.get(0) : null;
+    }
 }

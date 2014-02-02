@@ -12,5 +12,12 @@ public interface AnimalDao {
      * @return all the Animals
      */
     List<Animal> findAll();
+    
+    /**
+     * Retrieve an Animal from the database
+     * 
+     * @return Animal
+     */
+    Animal find(Long id);
 
 }

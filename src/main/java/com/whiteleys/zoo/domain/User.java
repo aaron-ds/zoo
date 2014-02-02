@@ -28,7 +28,7 @@ public class User implements Serializable {
     private Date dateOfBirth;
     private String postcode;
     private Sex sex;
-    private Set<Animal> favouriteAnimals;
+    private List<Animal> favouriteAnimals;
 
 
     public Integer getDobDay() {
@@ -114,11 +114,11 @@ public class User implements Serializable {
         return postcode;
     }
     
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "USER_ANIMAL", 
     			joinColumns = { @JoinColumn(name = "USER_ID") }, 
     			inverseJoinColumns = { @JoinColumn(name = "ANIMAL_ID") })
-    public Set<Animal> getFavouriteAnimals() {
+    public List<Animal> getFavouriteAnimals() {
     	return favouriteAnimals;
     }
 
@@ -157,7 +157,7 @@ public class User implements Serializable {
         this.password2 = password2;
     }
     
-    public void setFavouriteAnimals(Set<Animal> animals) {
+    public void setFavouriteAnimals(List<Animal> animals) {
     	favouriteAnimals = animals;
     }
 }

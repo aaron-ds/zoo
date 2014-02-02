@@ -24,4 +24,8 @@ public class HibernateUserDao extends HibernateDaoSupport implements UserDao {
     public boolean exists(String username) {
         return getHibernateTemplate().find("FROM User WHERE username = ?", username).size() == 1;
     }
+    
+    public void update(User user) {
+    	getHibernateTemplate().update(user);
+    }
 }

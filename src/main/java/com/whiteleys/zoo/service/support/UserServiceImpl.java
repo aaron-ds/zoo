@@ -60,6 +60,10 @@ public class UserServiceImpl implements UserService {
     public boolean exists(String username) {
         return userDao.exists(username);
     }
+    
+    public void updateUser(User user) {
+    	userDao.update(user);
+    }
 
     @Autowired
     public void setUserDao(UserDao userDao) {
