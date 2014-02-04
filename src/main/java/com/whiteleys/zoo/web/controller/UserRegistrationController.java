@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.Map;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,6 +48,7 @@ public class UserRegistrationController {
     	
     	userRegistrationValidator.validate(command, result);
     	if (result.hasErrors()) {
+    		// TODO need to return calendar setup
     		return "register";
     	}
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +36,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submit(HttpServletRequest request, @ModelAttribute("userCommand") User command) throws Exception {
+    public String submit(HttpServletRequest request, @ModelAttribute("userCommand") User command, BindingResult result) throws Exception {
 
     	try {
     		User user = userService.getUser(command.getUsername(), command.getPassword());
@@ -44,6 +45,7 @@ public class LoginController {
     		return "redirect:/home.html";
     		
     	} catch (IllegalArgumentException iae) {
+    		result.reject("", "Unknown username or password");
     		return "login";
     	}
     }

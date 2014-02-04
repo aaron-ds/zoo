@@ -120,7 +120,6 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         List<Animal> favouriteAnimals = user.getFavouriteAnimals();
         if (animal != null) {
-        	System.out.println("removing: " + animal.getName());
         	favouriteAnimals.remove(animal);
         	userService.updateUser(user);
         }

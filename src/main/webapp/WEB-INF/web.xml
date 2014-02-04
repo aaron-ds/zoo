@@ -56,6 +56,15 @@
             welcome.jsp
         </welcome-file>
     </welcome-file-list>
+    
+	<error-page>
+	    <error-code>404</error-code>
+	    <location>/WEB-INF/jsp/notfound.jsp</location>
+	</error-page>
 
+	<error-page>
+	    <error-code>500</error-code>
+	    <location>/WEB-INF/jsp/servererror.jsp</location>
+	</error-page>
     
 </web-app>
