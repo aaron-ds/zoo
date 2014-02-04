@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="myfn" uri="/WEB-INF/taglib/functions.tld" %>
 
 <h1>Gallery</h1>
 
@@ -11,15 +12,8 @@
 <c:forEach items="${requestScope.allAnimals}" var="animal">
     <p>
         <span><img src="gallery/${animal.filename}" alt="${animal.filename}"></span>
-        <c:set var="isFavourite" value="false" />
-		<c:forEach var="favourite" items="${requestScope.favourites}">
-		  <c:if test="${favourite.id eq animal.id}">
-		    <c:set var="isFavourite" value="true" />
-		  </c:if>
-		</c:forEach>
-		
         <c:choose>
-            <c:when test="${isFavourite}">
+            <c:when test="${myfn:contains(requestScope.favourites, animal)}">
                 <a href="removeFavourite.html?animalId=${animal.id}&gallery=true">
                     <img src="images/hotStar.png" alt="Remove from favourites"/>
                 </a>

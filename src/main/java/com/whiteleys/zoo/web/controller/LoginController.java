@@ -37,12 +37,15 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public String submit(HttpServletRequest request, @ModelAttribute("userCommand") User command) throws Exception {
 
-        User user = userService.getUser(command.getUsername(), command.getPassword());
-
-        // put the user into the session to indicate logged in status
-        request.getSession().setAttribute("user", user);
-
-        return "redirect:/home.html";
+    	try {
+    		User user = userService.getUser(command.getUsername(), command.getPassword());
+    		// put the user into the session to indicate logged in status
+    		request.getSession().setAttribute("user", user);    		
+    		return "redirect:/home.html";
+    		
+    	} catch (IllegalArgumentException iae) {
+    		return "login";
+    	}
     }
 
     @Autowired

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
@@ -38,11 +39,16 @@ public class UserRegistrationController {
 
     private UserService userService;
     
-    private Validator UserRegistrationValidator;
+    private Validator userRegistrationValidator;
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submitForm(HttpServletRequest request,@ModelAttribute("userCommand") User command) throws Exception {
+    public String submitForm(HttpServletRequest request,@ModelAttribute("userCommand") User command, BindingResult result) throws Exception {
+    	
+    	userRegistrationValidator.validate(command, result);
+    	if (result.hasErrors()) {
+    		return "register";
+    	}
 
         //Create the date of birth from the command
         Calendar cal = new GregorianCalendar();
@@ -74,6 +80,11 @@ public class UserRegistrationController {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+    
+    @Autowired
+    public void setUserRegistrationValidator(UserRegistrationValidator validator) {
+    	this.userRegistrationValidator = validator;
     }
 
    

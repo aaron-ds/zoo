@@ -66,5 +66,8 @@
             </set>
         </property>
     </bean>
+    
+    <!-- validators -->
+    <bean id="userRegistrationValidator" class="com.whiteleys.zoo.web.validation.UserRegistrationValidator" />
 
 </beans>
